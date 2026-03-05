@@ -21,6 +21,9 @@ public class Card {
     @Column(nullable = false)
     private boolean active = true;
 
+    @Column(nullable = false)
+    private String pin;
+
     public Card() {}
 
     // Getters
@@ -40,6 +43,10 @@ public class Card {
         return active;
     }
 
+    public String getPin() {
+        return pin;
+    }
+
     // Setters
     public void setActive(boolean active) {
         this.active = active;
@@ -55,5 +62,9 @@ public class Card {
 
     public void setCardId(Long cardId) {
         this.cardId = cardId;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 }

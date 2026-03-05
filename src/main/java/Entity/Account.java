@@ -24,7 +24,7 @@ public class Account {
     @Column(columnDefinition = "DECIMAL(10,2) default '0.00'")
     private BigDecimal balance;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -37,6 +37,9 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Card> cardList;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactionList;
 
     public Account() {}
 
@@ -69,6 +72,10 @@ public class Account {
         return cardList;
     }
 
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
     // Setters
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
@@ -98,5 +105,7 @@ public class Account {
         this.cardList = cardList;
     }
 
-
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
+    }
 }

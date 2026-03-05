@@ -22,10 +22,7 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
     @Column(nullable = true)
@@ -53,9 +50,6 @@ public class User {
         return lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
     public String getPassword() {
         return password;
@@ -84,10 +78,6 @@ public class User {
 
     public void setLastName(String lastName){
         this.lastName = lastName;
-    }
-
-    public void setUsername(String username){
-        this.username = username;
     }
 
     public void setPassword(String password){
