@@ -10,7 +10,8 @@ public class Transaction {
 
     public enum TRANSACTION_TYPE {
         DEPOSIT,
-        WITHDRAWAL
+        WITHDRAWAL,
+        INQUIRY
     }
 
     @Id
@@ -35,6 +36,15 @@ public class Transaction {
     private Account account;
 
     public Transaction() {}
+
+    public Transaction(BigDecimal amount, TRANSACTION_TYPE type, LocalDateTime timestamp, BigDecimal runningBalance,
+                       Account account) {
+        this.amount = amount;
+        this.type = type;
+        this.timestamp = timestamp;
+        this.runningBalance = runningBalance;
+        this.account = account;
+    }
 
     // Getters
     public Long getTransactionId() {

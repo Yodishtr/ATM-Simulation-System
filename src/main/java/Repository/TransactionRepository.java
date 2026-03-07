@@ -1,5 +1,6 @@
 package Repository;
 
+import Entity.Account;
 import Entity.Transaction;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findByType(Transaction.TRANSACTION_TYPE type);
     List<Transaction> findByTimestamp(LocalDateTime timestamp);
     List<Transaction> findByRunningBalance(BigDecimal runningBalance);
+    List<Transaction> findByAccount(Account account);
 
     @EntityGraph(attributePaths = {"account"})
     Optional<Transaction> findWithAccountById(Long id);
