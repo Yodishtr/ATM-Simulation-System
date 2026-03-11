@@ -51,6 +51,9 @@ public class AccountService {
             throw new NoSuchElementException("Card not found");
         }
         Account currentAccount = optionalCard.get().getAccount();
+        if (currentAccount.isActive() == false) {
+            throw new IllegalStateException("Current account is not active");
+        }
         currentAccount.setBalance(currentAccount.getBalance().add(amount));
         Transaction currentTransaction = new Transaction(amount, Transaction.TRANSACTION_TYPE.DEPOSIT,
                 LocalDateTime.now(), currentAccount.getBalance(), currentAccount);
@@ -69,6 +72,9 @@ public class AccountService {
             throw new NoSuchElementException("Card not found");
         }
         Account currentAccount = optionalCard.get().getAccount();
+        if (currentAccount.isActive() == false) {
+            throw new IllegalStateException("Current account is not active");
+        }
         BigDecimal currentAccountBalance = currentAccount.getBalance();
         if (amount.compareTo(currentAccountBalance) > 0) {
             throw new IllegalArgumentException("Amount cannot be greater than account balance");

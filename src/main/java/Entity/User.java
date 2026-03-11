@@ -2,6 +2,7 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,6 +37,15 @@ public class User {
     private List<Account> accounts;
 
     public User(){}
+
+    public User(String firstName, String lastName, String username, String email, ROLE role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.accounts = new ArrayList<>();
+    }
 
     // getters
     public Long getUserId(){
@@ -90,6 +100,10 @@ public class User {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
 
     public void setEmail(String email){

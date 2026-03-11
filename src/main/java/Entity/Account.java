@@ -3,6 +3,7 @@ package Entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +43,15 @@ public class Account {
     private List<Transaction> transactionList;
 
     public Account() {}
+
+    public Account(BigDecimal balance, User user, ACCTYPE accType) {
+        this.balance = balance;
+        this.user = user;
+        this.accType = accType;
+        this.active = true;
+        this.cardList = new ArrayList<>();
+        this.transactionList = new ArrayList<>();
+    }
 
     // Getters
     public Long getAccountId() {
@@ -103,6 +113,10 @@ public class Account {
 
     public void setCardList(List<Card> cardList) {
         this.cardList = cardList;
+    }
+
+    public void addCard(Card card) {
+        this.cardList.add(card);
     }
 
     public void setTransactionList(List<Transaction> transactionList) {

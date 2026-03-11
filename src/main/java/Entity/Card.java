@@ -26,6 +26,11 @@ public class Card {
 
     public Card() {}
 
+    public Card(Account account, String pin) {
+        this.account = account;
+        this.pin = pin;
+    }
+
     // Getters
     public Long getCardId() {
         return cardId;
