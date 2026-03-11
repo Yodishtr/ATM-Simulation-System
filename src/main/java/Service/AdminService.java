@@ -3,6 +3,7 @@ package Service;
 import DataTransferObjects.AccountCreatedDTO;
 import DataTransferObjects.CardCreatedDTO;
 import DataTransferObjects.UserCreatedDTO;
+import DataTransferObjects.UserDTO;
 import Entity.Account;
 import Entity.Card;
 import Entity.User;
@@ -10,10 +11,15 @@ import Repository.AccountRepository;
 import Repository.CardRepository;
 import Repository.TransactionRepository;
 import Repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -156,5 +162,31 @@ public class AdminService {
             accountRepository.save(currentAccount);
             return true;
         }
+    }
+
+    @Transactional
+    public Page<User> viewAllUsers(Integer pageNumber, Integer pageSize) {
+        Pageable currPageRequest = PageRequest.of(pageNumber, pageSize);
+        Page<User> currPage = userRepository.findAll(currPageRequest);
+        return currPage;
+    }
+
+    @Transactional
+    public UserDTO viewUser(String username) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+        User currentUser = optionalUser.get();
+        ArrayList<String> accountNumbers = new ArrayList<>();
+        ArrayList<String> cardNumbers = new ArrayList<>();
+        for (Account account : currentUser.getAccounts()) {
+            accountNumbers.add(account.getAccountNumber().toString());
+            for (Card card : account.getCardList()) {
+                cardNumbers.add(card.getCardNumber().toString());
+            }
+        }
+        return new UserDTO(currentUser.getUserId(), username, currentUser.getFirstName(), currentUser.getLastName(),
+                currentUser.getEmail(), accountNumbers, cardNumbers);
     }
 }
