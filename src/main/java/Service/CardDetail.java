@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.Card;
+import Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,7 +52,8 @@ public class CardDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        User currentUser = card.getAccount().getUser();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + currentUser.getRole().name()));
         return authorities;
     }
 }

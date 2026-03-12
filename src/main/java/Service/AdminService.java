@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AdminService {
@@ -83,7 +80,7 @@ public class AdminService {
         }
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if (!optionalUser.isPresent()) {
-            throw new IllegalArgumentException("User not found");
+            throw new NoSuchElementException("User not found");
         }
         if (accountType.equalsIgnoreCase("checking")){
             Account newAccount = new Account(runningBalance, optionalUser.get(), Account.ACCTYPE.CHECKING);
@@ -113,7 +110,7 @@ public class AdminService {
         }
         Optional<Account> optionalAccount = accountRepository.findByAccountNumber(accountNumber);
         if (!optionalAccount.isPresent()) {
-            throw new IllegalArgumentException("Account not found");
+            throw new NoSuchElementException("Account not found");
         }
         Account currentAccount = optionalAccount.get();
         User currentUser = currentAccount.getUser();
@@ -133,7 +130,7 @@ public class AdminService {
         }
         Optional<Account> optionalAccount = accountRepository.findByAccountNumber(accountNumber);
         if (!optionalAccount.isPresent()) {
-            throw new IllegalStateException("Account not found");
+            throw new NoSuchElementException("Account not found");
         }
         Account currentAccount = optionalAccount.get();
         if (currentAccount.isActive() == false) {
@@ -152,7 +149,7 @@ public class AdminService {
         }
         Optional<Account> optionalAccount = accountRepository.findByAccountNumber(accountNumber);
         if (!optionalAccount.isPresent()) {
-            throw new IllegalStateException("Account not found");
+            throw new NoSuchElementException("Account not found");
         }
         Account currentAccount = optionalAccount.get();
         if (currentAccount.isActive() == true) {
@@ -175,7 +172,7 @@ public class AdminService {
     public UserDTO viewUser(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if (optionalUser.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new NoSuchElementException("User not found");
         }
         User currentUser = optionalUser.get();
         ArrayList<String> accountNumbers = new ArrayList<>();
