@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private ROLE role;
 
-    @OneToMany(mappedBy = "registeredUser", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Account> accounts;
 
     public User(){}
