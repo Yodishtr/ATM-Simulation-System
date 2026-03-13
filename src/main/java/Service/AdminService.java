@@ -14,6 +14,7 @@ import Repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +26,14 @@ public class AdminService {
 
     private final AccountRepository accountRepository;
     private final CardRepository cardRepository;
-    private final TransactionRepository transactionRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
 
     public AdminService(AccountRepository accountRepository, CardRepository cardRepository,
-                        TransactionRepository transactionRepository, UserRepository userRepository) {
+                        BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
         this.accountRepository = accountRepository;
         this.cardRepository = cardRepository;
-        this.transactionRepository = transactionRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
     }
 
@@ -47,7 +48,8 @@ public class AdminService {
         if (accountType.equalsIgnoreCase("checking")) {
             Account onboardingAccount = new Account(currentBalance, onboardingUser, Account.ACCTYPE.CHECKING);
             onboardingUser.addAccount(onboardingAccount);
-            Card onboardingCard = new Card(onboardingAccount, cardPin);
+            String encodedCardPin = bCryptPasswordEncoder.encode(cardPin);
+            Card onboardingCard = new Card(onboardingAccount, encodedCardPin);
             onboardingAccount.addCard(onboardingCard);
             userRepository.save(onboardingUser);
             accountRepository.save(onboardingAccount);
@@ -59,7 +61,8 @@ public class AdminService {
         } else {
             Account savingsAccount = new Account(currentBalance, onboardingUser, Account.ACCTYPE.SAVINGS);
             onboardingUser.addAccount(savingsAccount);
-            Card savingsCard = new Card(savingsAccount, cardPin);
+            String encodedCardPin = bCryptPasswordEncoder.encode(cardPin);
+            Card savingsCard = new Card(savingsAccount, encodedCardPin);
             savingsAccount.addCard(savingsCard);
             userRepository.save(onboardingUser);
             accountRepository.save(savingsAccount);
@@ -114,7 +117,8 @@ public class AdminService {
         }
         Account currentAccount = optionalAccount.get();
         User currentUser = currentAccount.getUser();
-        Card freshCard = new Card(currentAccount, cardPin);
+        String encodedCardPin = bCryptPasswordEncoder.encode(cardPin);
+        Card freshCard = new Card(currentAccount, encodedCardPin);
         currentAccount.addCard(freshCard);
         cardRepository.save(freshCard);
         accountRepository.save(currentAccount);
