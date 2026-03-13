@@ -18,4 +18,10 @@ public class AccountCreatedDTO {
         this.accountType = accountType;
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "New Account: " + "account number= " + accountNumber + ", current balance = " + currentBalance +
+                ", username = " + username;
+    }
 }

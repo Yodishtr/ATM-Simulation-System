@@ -13,4 +13,9 @@ public class CardCreatedDTO {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return "New Card Issued: " + cardNumber + " " + userName + " " + firstName + " " + lastName;
+    }
 }

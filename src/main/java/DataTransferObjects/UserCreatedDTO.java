@@ -36,4 +36,11 @@ public class UserCreatedDTO {
     public boolean isCardActive() {
         return cardActive;
     }
+
+    @Override
+    public String toString() {
+        return "New User{ " + "username: " + username + ", account number: " + accountNumber +
+                ", card number: " + cardNumber + ", account active: " + accountActive + ", card active: " + cardActive +
+                " }";
+    }
 }
