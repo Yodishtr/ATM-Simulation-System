@@ -1,10 +1,10 @@
-package Controllers;
+package com.yodishtr.ATM.Simulator.Controllers;
 
-import DataTransferObjects.AccountCreatedDTO;
-import DataTransferObjects.CardCreatedDTO;
-import DataTransferObjects.UserCreatedDTO;
-import Entity.User;
-import Service.AdminService;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.AccountCreatedDTO;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.CardCreatedDTO;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.UserCreatedDTO;
+import com.yodishtr.ATM.Simulator.Entity.User;
+import com.yodishtr.ATM.Simulator.Service.AdminService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

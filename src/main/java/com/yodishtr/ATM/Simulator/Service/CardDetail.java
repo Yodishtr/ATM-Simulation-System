@@ -1,7 +1,7 @@
-package Service;
+package com.yodishtr.ATM.Simulator.Service;
 
-import Entity.Card;
-import Entity.User;
+import com.yodishtr.ATM.Simulator.Entity.Card;
+import com.yodishtr.ATM.Simulator.Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +14,11 @@ import java.util.Set;
 public class CardDetail implements UserDetails {
 
     private final Card card;
+    private final User user;
 
-    public CardDetail(Card card) {
+    public CardDetail(Card card, User user) {
         this.card = card;
+        this.user = user;
     }
 
     @Override
@@ -52,8 +54,7 @@ public class CardDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        User currentUser = card.getAccount().getUser();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + currentUser.getRole().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.user.getRole().name()));
         return authorities;
     }
 

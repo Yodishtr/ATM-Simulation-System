@@ -1,6 +1,6 @@
-package DataTransferObjects;
+package com.yodishtr.ATM.Simulator.DataTransferObjects;
 
-import Entity.Transaction;
+import com.yodishtr.ATM.Simulator.Entity.Transaction;
 
 import java.math.BigDecimal;
 import java.util.List;

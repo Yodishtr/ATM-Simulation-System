@@ -1,4 +1,4 @@
-package DataTransferObjects;
+package com.yodishtr.ATM.Simulator.DataTransferObjects;
 
 public class UserCreatedDTO {
 

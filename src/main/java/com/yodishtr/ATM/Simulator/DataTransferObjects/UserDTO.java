@@ -1,7 +1,4 @@
-package DataTransferObjects;
-
-import Entity.Account;
-import Entity.Card;
+package com.yodishtr.ATM.Simulator.DataTransferObjects;
 
 import java.util.List;
 

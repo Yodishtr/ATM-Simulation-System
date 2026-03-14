@@ -1,9 +1,6 @@
-package DataTransferObjects;
-
-import Entity.Card;
+package com.yodishtr.ATM.Simulator.DataTransferObjects;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class AccountCreatedDTO {
 

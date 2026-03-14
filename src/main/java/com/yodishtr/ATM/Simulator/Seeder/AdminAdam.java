@@ -1,11 +1,11 @@
-package Seeder;
+package com.yodishtr.ATM.Simulator.Seeder;
 
-import Entity.Account;
-import Entity.Card;
-import Entity.User;
-import Repository.AccountRepository;
-import Repository.CardRepository;
-import Repository.UserRepository;
+import com.yodishtr.ATM.Simulator.Entity.Account;
+import com.yodishtr.ATM.Simulator.Entity.Card;
+import com.yodishtr.ATM.Simulator.Entity.User;
+import com.yodishtr.ATM.Simulator.Repository.AccountRepository;
+import com.yodishtr.ATM.Simulator.Repository.CardRepository;
+import com.yodishtr.ATM.Simulator.Repository.UserRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +34,7 @@ public class AdminAdam implements ApplicationRunner {
         if (userRepository.findByRole(User.ROLE.ADMIN).size() == 0){
             User admin = new User("BigMan", "Yessai", "erling",
                     "bomboclat@gmail.com", User.ROLE.ADMIN);
-            Account account = new Account(BigDecimal.valueOf(100000000), admin, Account.ACCTYPE.SAVINGS);
+            Account account = new Account(BigDecimal.valueOf(100000), admin, Account.ACCTYPE.SAVINGS);
             String cardPin = "1234";
             String encodedCardPin = bCryptPasswordEncoder.encode(cardPin);
             Card card = new Card(account, encodedCardPin);

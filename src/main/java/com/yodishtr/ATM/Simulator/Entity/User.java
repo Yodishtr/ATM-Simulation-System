@@ -1,4 +1,4 @@
-package Entity;
+package com.yodishtr.ATM.Simulator.Entity;
 
 import jakarta.persistence.*;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     public enum ROLE{

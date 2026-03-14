@@ -1,4 +1,4 @@
-package Config;
+package com.yodishtr.ATM.Simulator.Config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

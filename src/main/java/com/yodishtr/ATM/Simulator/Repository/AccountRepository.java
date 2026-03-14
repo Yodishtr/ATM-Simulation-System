@@ -1,35 +1,36 @@
-package Repository;
+package com.yodishtr.ATM.Simulator.Repository;
 
-import Entity.Account;
+import com.yodishtr.ATM.Simulator.Entity.Account;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Optional<Account> findById(Long id);
+    Optional<Account> findByAccountId(Long id);
     Optional<Account> findByAccountNumber(UUID accountNumber);
-    List<Account> findByAccountType(Account.ACCTYPE accountType);
+    List<Account> findByAccType(Account.ACCTYPE accountType);
     List<Account> findByBalance(BigDecimal balance);
 
-    boolean existsById(Long id);
+    boolean existsByAccountId(Long id);
     boolean existsByAccountNumber(UUID accountNumber);
-    boolean existsByAccountType(Account.ACCTYPE accountType);
+    boolean existsByAccType(Account.ACCTYPE accountType);
     boolean existsByBalance(BigDecimal balance);
 
     @EntityGraph(attributePaths = {"user"})
-    Optional<Account> findWithUserById(Long id);
+    Optional<Account> findWithUserByAccountId(Long id);
 
     @EntityGraph(attributePaths = {"cardList"})
-    Optional<Account> findWithCardListById(Long id);
+    Optional<Account> findWithCardListByAccountId(Long id);
 
     @EntityGraph(attributePaths = {"transactionList"})
-    Optional<Account> findWithTransactionListById(Long id);
+    Optional<Account> findWithTransactionListByAccountId(Long id);
 
     @EntityGraph(attributePaths = {"user"})
     Optional<Account> findWithUserByAccountNumber(UUID accountNumber);

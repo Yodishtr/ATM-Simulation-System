@@ -1,16 +1,15 @@
-package Service;
+package com.yodishtr.ATM.Simulator.Service;
 
-import DataTransferObjects.AccountCreatedDTO;
-import DataTransferObjects.CardCreatedDTO;
-import DataTransferObjects.UserCreatedDTO;
-import DataTransferObjects.UserDTO;
-import Entity.Account;
-import Entity.Card;
-import Entity.User;
-import Repository.AccountRepository;
-import Repository.CardRepository;
-import Repository.TransactionRepository;
-import Repository.UserRepository;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.AccountCreatedDTO;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.CardCreatedDTO;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.UserCreatedDTO;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.UserDTO;
+import com.yodishtr.ATM.Simulator.Entity.Account;
+import com.yodishtr.ATM.Simulator.Entity.Card;
+import com.yodishtr.ATM.Simulator.Entity.User;
+import com.yodishtr.ATM.Simulator.Repository.AccountRepository;
+import com.yodishtr.ATM.Simulator.Repository.CardRepository;
+import com.yodishtr.ATM.Simulator.Repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -89,8 +88,8 @@ public class AdminService {
             Account newAccount = new Account(runningBalance, optionalUser.get(), Account.ACCTYPE.CHECKING);
             User currentUser = optionalUser.get();
             currentUser.addAccount(newAccount);
-            userRepository.save(currentUser);
             accountRepository.save(newAccount);
+            userRepository.save(currentUser);
             AccountCreatedDTO accCreatedDTO = new AccountCreatedDTO(newAccount.getAccountNumber().toString(),
                     runningBalance, "checking", username);
             return accCreatedDTO;
@@ -98,8 +97,8 @@ public class AdminService {
             Account savingsAccount = new Account(runningBalance, optionalUser.get(), Account.ACCTYPE.SAVINGS);
             User currentUser = optionalUser.get();
             currentUser.addAccount(savingsAccount);
-            userRepository.save(currentUser);
             accountRepository.save(savingsAccount);
+            userRepository.save(currentUser);
             AccountCreatedDTO accCreatedDTO = new AccountCreatedDTO(savingsAccount.getAccountNumber().toString(),
                     runningBalance, "savings", username);
             return accCreatedDTO;

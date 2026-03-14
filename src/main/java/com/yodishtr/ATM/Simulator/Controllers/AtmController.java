@@ -1,9 +1,9 @@
-package Controllers;
+package com.yodishtr.ATM.Simulator.Controllers;
 
-import DataTransferObjects.LoggedInAccountInfo;
-import Entity.Card;
-import Service.AccountService;
-import Service.CardDetail;
+import com.yodishtr.ATM.Simulator.DataTransferObjects.LoggedInAccountInfo;
+import com.yodishtr.ATM.Simulator.Entity.Card;
+import com.yodishtr.ATM.Simulator.Service.AccountService;
+import com.yodishtr.ATM.Simulator.Service.CardDetail;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

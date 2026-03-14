@@ -1,4 +1,4 @@
-package Entity;
+package com.yodishtr.ATM.Simulator.Entity;
 
 import jakarta.persistence.*;
 
@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "bank_transactions")
 public class Transaction {
 
     public enum TRANSACTION_TYPE {
@@ -32,7 +33,7 @@ public class Transaction {
     private BigDecimal runningBalance;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id")
+    @JoinColumn(name = "transaction_number")
     private Account account;
 
     public Transaction() {}

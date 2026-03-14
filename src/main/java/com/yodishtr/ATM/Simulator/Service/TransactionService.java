@@ -1,11 +1,11 @@
-package Service;
+package com.yodishtr.ATM.Simulator.Service;
 
-import Entity.Account;
-import Entity.Card;
-import Entity.Transaction;
-import Repository.AccountRepository;
-import Repository.CardRepository;
-import Repository.TransactionRepository;
+import com.yodishtr.ATM.Simulator.Entity.Account;
+import com.yodishtr.ATM.Simulator.Entity.Card;
+import com.yodishtr.ATM.Simulator.Entity.Transaction;
+import com.yodishtr.ATM.Simulator.Repository.AccountRepository;
+import com.yodishtr.ATM.Simulator.Repository.CardRepository;
+import com.yodishtr.ATM.Simulator.Repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ public class TransactionService {
 
     @Transactional
     public List<Transaction> getTransactionHistory(Long cardId) {
-        Optional<Card> optionalCard = cardRepository.findWithAccountById(cardId);
+        Optional<Card> optionalCard = cardRepository.findWithAccountByCardId(cardId);
         if (optionalCard.isEmpty()) {
             throw new NoSuchElementException("Card not found");
         }

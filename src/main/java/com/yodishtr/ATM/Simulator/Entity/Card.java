@@ -1,4 +1,4 @@
-package Entity;
+package com.yodishtr.ATM.Simulator.Entity;
 
 import jakarta.persistence.*;
 

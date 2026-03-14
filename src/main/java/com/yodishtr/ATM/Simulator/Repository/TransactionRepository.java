@@ -1,18 +1,20 @@
-package Repository;
+package com.yodishtr.ATM.Simulator.Repository;
 
-import Entity.Account;
-import Entity.Transaction;
+import com.yodishtr.ATM.Simulator.Entity.Account;
+import com.yodishtr.ATM.Simulator.Entity.Transaction;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    Optional<Transaction> findById(Long id);
+    Optional<Transaction> findByTransactionId(Long id);
     List<Transaction> findByAmount(BigDecimal amount);
     List<Transaction> findByType(Transaction.TRANSACTION_TYPE type);
     List<Transaction> findByTimestamp(LocalDateTime timestamp);
@@ -20,5 +22,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findByAccount(Account account);
 
     @EntityGraph(attributePaths = {"account"})
-    Optional<Transaction> findWithAccountById(Long id);
+    Optional<Transaction> findWithAccountByTransactionId(Long id);
 }

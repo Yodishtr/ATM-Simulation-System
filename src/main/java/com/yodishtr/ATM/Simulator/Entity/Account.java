@@ -1,4 +1,4 @@
-package Entity;
+package com.yodishtr.ATM.Simulator.Entity;
 
 import jakarta.persistence.*;
 
@@ -22,7 +22,7 @@ public class Account {
     @Column(nullable = false, unique = true)
     private UUID accountNumber = UUID.randomUUID();
 
-    @Column(columnDefinition = "DECIMAL(10,2) default '0.00'")
+    @Column(precision = 10, scale = 2)
     private BigDecimal balance;
 
     @ManyToOne(fetch = FetchType.LAZY)
