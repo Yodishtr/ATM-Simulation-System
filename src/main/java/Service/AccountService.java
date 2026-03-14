@@ -1,5 +1,6 @@
 package Service;
 
+import DataTransferObjects.LoggedInAccountInfo;
 import Entity.Account;
 import Entity.Card;
 import Entity.Transaction;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -29,8 +32,21 @@ public class AccountService {
     }
 
     @Transactional
-    public BigDecimal getBalance(Long cardId) {
-        Optional<Card> optionalCard = cardRepository.findWithAccountById(cardId);
+    public LoggedInAccountInfo accountInfo(UUID cardNumber) {
+        Optional<Card> optionalCard = cardRepository.findWithAccountByCardNumber(cardNumber);
+        if (optionalCard.isEmpty()) {
+            throw new NoSuchElementException("Card not found");
+        }
+        Card currentCard = optionalCard.get();
+        BigDecimal runningBalance = currentCard.getAccount().getBalance();
+        UUID accountNumber = currentCard.getAccount().getAccountNumber();
+        List<Transaction> transactionList = currentCard.getAccount().getTransactionList();
+        return new LoggedInAccountInfo(runningBalance, accountNumber, transactionList, cardNumber);
+    }
+
+    @Transactional
+    public BigDecimal getBalance(UUID cardNumber) {
+        Optional<Card> optionalCard = cardRepository.findWithAccountByCardNumber(cardNumber);
         if (optionalCard.isEmpty()){
             throw new NoSuchElementException("Card not found");
         }
@@ -42,11 +58,11 @@ public class AccountService {
     }
 
     @Transactional
-    public Account deposit(Long cardId, BigDecimal amount) {
+    public void deposit(UUID cardNumber, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Amount must be greater than zero");
         }
-        Optional<Card> optionalCard = cardRepository.findWithAccountById(cardId);
+        Optional<Card> optionalCard = cardRepository.findWithAccountByCardNumber(cardNumber);
         if (optionalCard.isEmpty()) {
             throw new NoSuchElementException("Card not found");
         }
@@ -59,15 +75,14 @@ public class AccountService {
                 LocalDateTime.now(), currentAccount.getBalance(), currentAccount);
         transactionRepository.save(currentTransaction);
         accountRepository.save(currentAccount);
-        return currentAccount;
     }
 
     @Transactional
-    public Account withdraw(Long cardId, BigDecimal amount) {
+    public void withdraw(UUID cardNumber, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Amount must be greater than zero");
         }
-        Optional<Card> optionalCard = cardRepository.findWithAccountById(cardId);
+        Optional<Card> optionalCard = cardRepository.findWithAccountByCardNumber(cardNumber);
         if (optionalCard.isEmpty()) {
             throw new NoSuchElementException("Card not found");
         }
@@ -84,6 +99,5 @@ public class AccountService {
                 LocalDateTime.now(), currentAccount.getBalance(), currentAccount);
         transactionRepository.save(currentTransaction);
         accountRepository.save(currentAccount);
-        return currentAccount;
     }
 }

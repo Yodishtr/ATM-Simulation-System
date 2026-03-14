@@ -56,4 +56,8 @@ public class CardDetail implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_" + currentUser.getRole().name()));
         return authorities;
     }
+
+    public Card getCard() {
+        return card;
+    }
 }
